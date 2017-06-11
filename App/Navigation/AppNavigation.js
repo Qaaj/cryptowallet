@@ -1,20 +1,19 @@
-import { StackNavigator } from 'react-navigation'
-import LaunchScreen from '../Containers/LaunchScreen'
-import LoginScreen from '../Containers/LoginScreen'
+import {StackNavigator, TabNavigator} from 'react-navigation'
+import MainScreen from '../Containers/MainScreen'
+import LoadingScreen from '../Containers/LoadingScreen'
 
 import styles from './Styles/NavigationStyles'
 
+
+
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  LaunchScreen: { screen: LaunchScreen },
-  LoginScreen: {
-    screen: LoginScreen,
-    navigationOptions: { title: 'Login' }
-  }
+  LoadingScreen: {screen: LoadingScreen},
+  MainScreen: {screen: MainScreen},
 }, {
   // Default config for all screens
+  initialRouteName: 'LoadingScreen',
   headerMode: 'none',
-  initialRouteName: 'LaunchScreen',
   navigationOptions: {
     headerStyle: styles.header
   }

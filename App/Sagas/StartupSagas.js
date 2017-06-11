@@ -1,12 +1,15 @@
 import { put, select } from 'redux-saga/effects'
+import {delay} from 'redux-saga'
 import GithubActions from '../Redux/GithubRedux'
+import PriceActions from '../Redux/PricesRedux'
+import SettingActions from '../Redux/SettingRedux'
 import { is } from 'ramda'
 
 // exported to make available for tests
 export const selectAvatar = (state) => state.github.avatar
 
 // process STARTUP actions
-export function * startup (action) {
+export function * startup () {
   if (__DEV__ && console.tron) {
     // straight-up string logging
     console.tron.log('Hello, I\'m an example of how to log via Reactotron.')
@@ -32,9 +35,6 @@ export function * startup (action) {
       }
     })
   }
-  const avatar = yield select(selectAvatar)
-  // only get if we don't have it yet
-  if (!is(String, avatar)) {
-    yield put(GithubActions.userRequest('GantMan'))
-  }
+
+  yield put(PriceActions.fetchRequest());
 }
