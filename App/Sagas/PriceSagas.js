@@ -1,19 +1,40 @@
-import { call, put} from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects'
 import {delay} from 'redux-saga'
-import { path } from 'ramda'
 import PriceActions from '../Redux/PricesRedux'
+import { PriceTypes } from '../Redux/PricesRedux'
 
-export function * getEtherPrice () {
 
-  // yield delay(1000);
-  // yield delay(1000);
+export function* goUp(){
   yield delay(1000);
+  yield delay(1000);
+  yield delay(1000);
+  yield delay(1000);
+  yield delay(1000);
+  yield put({type: PriceTypes.FETCH_REQUEST});
+}
 
-  const response = {ok:true, price: 300 + Math.round(-20 + (40*Math.random()))};
+export function* priceWatcher(){
+  yield takeEvery(PriceTypes.FETCH_SUCCESS, goUp);
+  yield takeEvery(PriceTypes.FETCH_REQUEST, getEtherPrice)
+}
 
+export function * getEtherPrice() {
 
-  if (response.ok) {
-    const {price} = response; //response[0];
+  let price = yield call(() => new Promise(go => {
+    function reqListener () {
+      go(JSON.parse(this.responseText).price);
+    }
+
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    oReq.open("GET", "https://eth3r3um.herokuapp.com/EUR");
+    oReq.send();
+  })
+  )
+
+  // const response = {ok: true, price: 300 + Math.round(-20 + (40 * Math.random()))};
+
+  if (price) {
     yield put(PriceActions.fetchSuccess({price}))
   } else {
     yield put(PriceActions.fetchFailure())

@@ -1,15 +1,9 @@
-import { all } from 'redux-saga/effects'
-
-
-/* ------------- Types ------------- */
-
-import { StartupTypes } from '../Redux/StartupRedux'
-import { PriceTypes } from '../Redux/PricesRedux'
+import { all, put } from 'redux-saga/effects'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
-import { getEtherPrice } from './PriceSagas'
+import { getEtherPrice ,priceWatcher} from './PriceSagas'
 
 
 /* ------------- Connect Types To Sagas ------------- */
@@ -18,6 +12,7 @@ export default function * root () {
 
   yield all([
     startup(),
-    getEtherPrice()
+    getEtherPrice(),
+    priceWatcher()
   ])
 }
