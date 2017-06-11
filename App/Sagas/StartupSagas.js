@@ -1,9 +1,5 @@
-import { put, select } from 'redux-saga/effects'
-import {delay} from 'redux-saga'
-import GithubActions from '../Redux/GithubRedux'
+import { put } from 'redux-saga/effects'
 import PriceActions from '../Redux/PricesRedux'
-import SettingActions from '../Redux/SettingRedux'
-import { is } from 'ramda'
 
 // exported to make available for tests
 export const selectAvatar = (state) => state.github.avatar

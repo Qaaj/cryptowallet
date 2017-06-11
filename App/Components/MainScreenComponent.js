@@ -45,7 +45,7 @@ export default class MainScreenComponent extends React.Component {
     let basecost = 0;
 
     let numcoins = this.props.activePairs.reduce((p,c) => {
-      basecost = parseInt(c.amount) * parseInt(c.price);
+      basecost = basecost + (parseInt(c.amount) * parseInt(c.price));
       p = parseInt(c.amount) + p;
       return p;
     },0)
