@@ -27,7 +27,7 @@ export function * getEtherPrice() {
 
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
-    oReq.open("GET", "https://eth3r3um.herokuapp.com/EUR");
+    oReq.open("GET", "http://eth3r3um.herokuapp.com/api/ETH/EUR");
     oReq.send();
   })
   )
